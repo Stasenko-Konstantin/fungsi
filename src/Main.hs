@@ -1,5 +1,8 @@
 module Main where
 
+import Lexer
+import Token
+
 import System.IO
 
 main :: IO ()
@@ -11,4 +14,6 @@ main = do
        then return ()
        else do
            putStr "> "
-           putStrLn line
+           tokens <- return (scan line)
+           putStrLn $ show tokens
+           main
