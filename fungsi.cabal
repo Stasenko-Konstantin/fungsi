@@ -3,7 +3,7 @@
 
 name:                fungsi
 version:             0.1.0.0
--- synopsis:
+synopsis:            simple functional language
 -- description:
 license:             GPL-3
 license-file:        LICENSE
