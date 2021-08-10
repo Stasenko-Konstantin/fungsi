@@ -12,4 +12,7 @@ data TokenType = PLUS      | MINUS  | STAR   | SLASH | RSLASH | EXPCLAMATION | P
 data Token = Token { token :: TokenType, content :: String, pos :: Int }
 
 instance Show Token where
-	show (Token token content pos) = "token = " ++ (show token) ++ ", content = " ++ (show content) ++ ", pos = " ++ (show pos) 
+	show (Token token content pos) = 
+		" {token = " ++ (show token) ++ 
+		", content = " ++ (show content) ++ 
+		", pos = " ++ (show pos) ++ "} "
