@@ -4,6 +4,7 @@ import Lexer
 import Token
 
 import System.IO
+import Data.Char
 
 main :: IO ()
 main = do 
@@ -14,6 +15,6 @@ main = do
        then return ()
        else do
            putStr "> "
-           tokens <- return (scan line)
+           tokens <- return (scan $ map toLower line)
            putStrLn $ show tokens
            main

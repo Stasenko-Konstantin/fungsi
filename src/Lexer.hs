@@ -2,6 +2,8 @@ module Lexer where
 
 import Token
 
+import Data.Char 
+
 scan :: String -> [Token]
 scan []     = []
 scan source = help [] source
@@ -22,13 +24,12 @@ scan source = help [] source
 				'@'  -> help ((Token.Token Token.LAMBDA       "@"  start) : tokens) ode
 				'\n' -> help ((Token.Token Token.SEMICOLON    "\n" start) : tokens) ode
 				_ | c == '=' || c == '<' || c == '>' -> addEqual code
-				_ | isDigit  c -> addNum code
+				_ | isNumber c -> addNum code
 				_ | isLetter c -> addName code
 				_ | otherwise  -> error $ "Syntax error: " ++ (show c)
 			where
-				addEqual pos  = undefined 
-				isDigit  char = undefined
-				isLetter char = undefined
-				addNum   pos  = undefined
-				addName  pos  = undefined
-				start         = length code
+				addEqual pos    = undefined
+				addNum   pos    = undefined
+				addName  pos    = undefined
+
+				start           = length code
