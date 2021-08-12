@@ -12,24 +12,30 @@ scan source = help [] source
 		help tokens ""           = reverse tokens
 		help tokens code@(c:ode) = 
 			case c of
-				'+'  -> help ((Token.Token Token.PLUS         "+"  start) : tokens) ode
-				'-'  -> help ((Token.Token Token.MINUS        "-"  start) : tokens) ode
-				'*'  -> help ((Token.Token Token.STAR         "*"  start) : tokens) ode
-				'/'  -> help ((Token.Token Token.SLASH        "/"  start) : tokens) ode
-				'\\' -> help ((Token.Token Token.RSLASH       "\\" start) : tokens) ode
-				'!'  -> help ((Token.Token Token.EXPCLAMATION "!"  start) : tokens) ode
-				'^'  -> help ((Token.Token Token.POWER        "^"  start) : tokens) ode
-				'('  -> help ((Token.Token Token.LPAREN       "("  start) : tokens) ode
-				')'  -> help ((Token.Token Token.RPAREN       ")"  start) : tokens) ode
-				'@'  -> help ((Token.Token Token.LAMBDA       "@"  start) : tokens) ode
-				'\n' -> help ((Token.Token Token.SEMICOLON    "\n" start) : tokens) ode
+				'+'  -> help ((Token PLUS         "+"  start) : tokens) ode
+				'-'  -> help ((Token MINUS        "-"  start) : tokens) ode
+				'*'  -> help ((Token STAR         "*"  start) : tokens) ode
+				'/'  -> help ((Token SLASH        "/"  start) : tokens) ode
+				'\\' -> help ((Token RSLASH       "\\" start) : tokens) ode
+				'!'  -> help ((Token EXPCLAMATION "!"  start) : tokens) ode
+				'^'  -> help ((Token POWER        "^"  start) : tokens) ode
+				'('  -> help ((Token LPAREN       "("  start) : tokens) ode
+				')'  -> help ((Token RPAREN       ")"  start) : tokens) ode
+				'@'  -> help ((Token LAMBDA       "@"  start) : tokens) ode
+				'\n' -> help ((Token SEMICOLON    "\n" start) : tokens) ode
 				_ | c == '=' || c == '<' || c == '>' -> addEqual code
 				_ | isNumber c -> addNum code
 				_ | isLetter c -> addName code
 				_ | otherwise  -> error $ "Syntax error: " ++ (show c)
 			where
-				addEqual pos    = undefined
-				addNum   pos    = undefined
-				addName  pos    = undefined
+				addEqual ('<':'=':xs) = help ((Token LEQUAL    "<=" start) : tokens) xs
+				addEqual ('>':'=':xs) = help ((Token GEQUAL    ">=" start) : tokens) xs
+				addEqual ('=':'=':xs) = help ((Token DEQUAL    "==" start) : tokens) xs
+				addEqual ('<':xs)     = help ((Token LESS      "<" start)  : tokens) ode
+				addEqual ('>':xs)     = help ((Token GREAT     ">" start)  : tokens) ode
+				addEqual ('=':xs)     = help ((Token EQUAL     "=" start)  : tokens) ode
 
-				start           = length code
+				addNum   slice = undefined
+				addName  slice = undefined
+
+				start          = length code
