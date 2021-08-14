@@ -9,7 +9,7 @@ object Main:
   def main(args: Array[String]): Unit =
     print("< ")
     val input = Option(" " + readLine().toLowerCase)
-    val tokens = Scanner.scan(input)
+    val tokens = Lexer.scan(input)
     tokens.get.foreach(println)
     //val expr = Parser.parse(tokens.get)
     //println(AstPrinter.print(expr))

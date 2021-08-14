@@ -1,4 +1,4 @@
-object Scanner {
+object Lexer {
 
   def scan(code: Option[String]): Option[List[Token]] = {
 
@@ -27,7 +27,6 @@ object Scanner {
             case "and" => t = Token.AND
             case "or" => t = Token.OR
             case "not" => t = Token.NOT
-            case "sqrt" => t = Token.SQRT
             case _ => t = Token.NAME
           }
           help(Token(t, r.reverse) :: tokens, s)

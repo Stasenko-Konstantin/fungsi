@@ -1,6 +1,7 @@
 module Lexer where
 
 import Token
+import Help
 
 import Data.Char 
 import Debug.Trace
@@ -49,4 +50,16 @@ scan source = help [] source
                 resultNum True  res next = help ((Token FLOAT res) : tokens) next
                 resultNum False res next = help ((Token INT   res) : tokens) next
 
-                addName  slice = undefined
+                addName code = help ((Token (fst3 token) (snd3 token)) : tokens) (thd3 token)
+                    where
+                        token = case code of
+                            ('i':'f':xs)             -> (IF,    "if",    xs)
+                            ('t':'h':'e':'n':xs)     -> (THEN,  "then",  xs)
+                            ('e':'l':'s':'e':xs)     -> (ELSE,  "else",  xs)
+                            ('t':'r':'u':'e':xs)     -> (TRUE,  "true",  xs)
+                            ('f':'a':'l':'s':'e':xs) -> (FALSE, "false", xs)
+                            ('a':'n':'d':xs)         -> (AND,   "and",   xs)
+                            ('o':'r':xs)             -> (OR,    "or",    xs)
+                            ('n':'o':'t':xs)         -> (NOT,   "not",   xs)
+                            xs                       -> (NAME,  (takeWhile isLetter code), 
+                                                                 dropWhile isLetter xs)

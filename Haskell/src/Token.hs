@@ -3,7 +3,7 @@ module Token where
 data TokenType = PLUS      | MINUS  | STAR   | SLASH | RSLASH | EXPCLAMATION | POWER  |
                  BIND      | EQUAL  | DEQUAL | LESS  | GREAT  | LEQUAL       | GEQUAL |
                  FALSE     | TRUE   | IF     | THEN  | ELSE   | AND          | OR     | NOT |
-                 NAME      | LAMBDA | SQRT   | 
+                 NAME      | LAMBDA | 
                  INT       | FLOAT  |
                  LPAREN    | RPAREN |
                  SEMICOLON | EOF    | 

@@ -31,7 +31,6 @@ class Token(val token: TokenType, val content: String):
       
       case Token.NAME => concat("Name")
       case Token.LAMBDA => concat("Lambda")
-      case Token.SQRT => concat("Sqrt")
       
       case Token.INT => concat("Int")
       case Token.FLOAT => concat("Float")
