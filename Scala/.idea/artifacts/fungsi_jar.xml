@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="fungsi:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/fungsi_jar</output-path>
+    <root id="archive" name="sfcalc.jar">
+      <element id="module-output" name="fungsi" />
+      <element id="extracted-dir" path="$USER_HOME$/.cache/coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala3-library_3/3.0.0/scala3-library_3-3.0.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/.cache/coursier/v1/https/repo1.maven.org/maven2/org/scala-lang/scala-library/2.13.5/scala-library-2.13.5.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
