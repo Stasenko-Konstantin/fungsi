@@ -41,7 +41,7 @@
 | ()
 > f3 = Func => Nil
 
-< :t log
+< type(log)
 > Func => Int | Nil
 
 < f4 := @(a)\
@@ -51,4 +51,6 @@
 < f4 := @(a)\
 | (if isNil(log(a)) then nil else sqrt(log(a)))
 > f4 = Func => Int | Nil
+
+quit()
 ```
