@@ -52,5 +52,5 @@
 | (if isNil(log(a)) then nil else sqrt(log(a)))
 > f4 = Func => Int | Nil
 
-quit()
+< quit()
 ```
