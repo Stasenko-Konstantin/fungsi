@@ -14,7 +14,7 @@
 > a = 25
 
 < A := 26 -- язык регистронезависим, а все "переменные", на самом деле константы
-> Override error
+> Override error: a = 25
 
 < if not a = 5! then true else false -- ветка else обязательная
 > false
@@ -42,15 +42,15 @@
 > f3 = Func => Nil
 
 < type(log)
-> Func => Int | Nil
+> Func => Num | Nil
 
 < f4 := @(a)\
 | (sqrt(log(a))
-> Raw Nil error
+> Raw Nil error: log => Num | Nil; sqrt( param => Num )
 
 < f4 := @(a)\
 | (if isNil(log(a)) then nil else sqrt(log(a)))
-> f4 = Func => Int | Nil
+> f4 = Func => Num | Nil
 
 < quit()
 ```
