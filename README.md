@@ -44,7 +44,6 @@
 < :t log
 > Func => Int | Nil
 
-
 < f4 := @(a)\
 | (sqrt(log(a))
 > Raw Nil error
