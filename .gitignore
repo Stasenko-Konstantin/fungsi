@@ -1,1 +1,4 @@
-dist
+scala/.bsp
+scala/.idea
+scala/target
+scala/src/main/scala/WrongParser.scala
