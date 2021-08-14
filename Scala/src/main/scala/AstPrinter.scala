@@ -6,7 +6,7 @@ object AstPrinter:
       case in: Infix => parenthesize(in.middle.content, in.left :: in.right :: Nil)
       case pre: Prefix => parenthesize(pre.left.content, pre.right :: Nil)
       case post: Postfix => parenthesize(post.right.content, post.left :: Nil)
-      case group: Grouping => parenthesize("group", group.expr :: Nil)
+      case group: Group => parenthesize("group", group.expr :: Nil)
       case liter: Literal => liter.value match {
         case Some(l) => l.toString
         case None => "nil"

@@ -88,7 +88,7 @@ class WrongParser(tokens: List[Token]) {
     if (matchExpr(Token.LPAREN)) {
       val expr = expression()
       consume(Token.RPAREN, "Expect ')'")
-      Grouping(expr)
+      Group(expr)
     }
 
     Main.error("Expect expressiom", "")
