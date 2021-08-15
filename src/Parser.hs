@@ -20,12 +20,6 @@ parse tokens@(t:okens) = help tokens 1
 		help ((Token FALSE _) : xs) curr = undefined
 		help ((Token TRUE  _) : xs) curr = undefined
 
-		help [(Token NAME  content)] _ = Literal (Token NAME  content)
-		help [(Token INT   content)] _ = Literal (Token INT   content)
-		help [(Token FLOAT content)] _ = Literal (Token FLOAT content)
-		help [(Token FALSE _)] _ = Literal (Token FALSE "false")
-		help [(Token TRUE  _)] _ = Literal (Token TRUE  "true")
-
 		help _ _ = error "Semantic error"
 
 		end = length tokens
