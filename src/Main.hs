@@ -13,11 +13,11 @@ main = do
     putStr "< "
     hFlush stdout
     line <- getLine
-    if line == ":q" 
-       then return ()
-       else do
-           putStr "> "
-           tokens <- return (scan $ map toLower line)
-           exprs  <- return (parse tokens)
-           putStrLn $ show exprs
-           main
+    case line of
+        "quit()" -> return ()
+        _   -> do
+            putStr "> "
+            tokens <- return (scan $ map toLower line)
+            exprs  <- return (parse tokens)
+            putStrLn $ show exprs
+            main

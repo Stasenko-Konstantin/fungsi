@@ -61,5 +61,7 @@ scan source = help [] source
                             ('a':'n':'d':xs)         -> (AND,   "and",   xs)
                             ('o':'r':xs)             -> (OR,    "or",    xs)
                             ('n':'o':'t':xs)         -> (NOT,   "not",   xs)
-                            xs                       -> (NAME,  (takeWhile isLetter code), 
-                                                                 dropWhile isLetter xs)
+                            xs                       -> (NAME,  (takeWhile p code), 
+                                                                 dropWhile p xs)
+                                where
+                                    p c = isLetter c || isNumber c
