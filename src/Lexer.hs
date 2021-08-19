@@ -22,10 +22,10 @@ scan source = help [] source
                 '\\' -> help ((Token RSLASH       "\\") : tokens) ode
                 '!'  -> help ((Token EXPCLAMATION "!")  : tokens) ode
                 '^'  -> help ((Token POWER        "^")  : tokens) ode
-                '('  -> help ((Token LPAREN       "(")  : tokens) ode
-                ')'  -> help ((Token RPAREN       ")")  : tokens) ode
                 '@'  -> help ((Token LAMBDA       "@")  : tokens) ode
                 '\n' -> help ((Token SEMICOLON    "\n") : tokens) ode
+                _ | c == '(' || c == '[' -> help ((Token LPAREN "(") : tokens) ode
+                _ | c == ')' || c == ']' -> help ((Token RPAREN ")") : tokens) ode
                 _ | c == '=' || c == '<' || c == '>' -> addEqual code
                 _ | isNumber c -> addNum code False ""
                 _ | isLetter c -> addName code
