@@ -2,8 +2,6 @@ module Main where
 
 import Lexer
 import Token
-import Expr
-import Parser
 
 import System.IO
 import Data.Char
@@ -18,6 +16,6 @@ main = do
         _   -> do
             putStr "> "
             tokens <- return (scan $ map toLower line)
-            exprs  <- return (parse tokens)
-            putStrLn $ show exprs
+            --exprs  <- return (parse tokens)
+            putStrLn $ show tokens --exprs
             main
