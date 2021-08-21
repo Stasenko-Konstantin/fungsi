@@ -9,9 +9,9 @@ data TokenType =  PLUS      | MINUS  | STAR   | SLASH | RSLASH | EXPCLAMATION | 
                 | SEMICOLON | EOF    
                 | NIL                  deriving Show
 
-data Token = Token { token :: TokenType, content :: String }
+data Token = Token { token :: TokenType, content :: String, suptype :: String }
 
 instance Show Token where
-    show (Token token content) = 
+    show (Token token content _) = 
         " {token = " ++ (show token) ++ 
         ", content = " ++ (show content) ++ "} "
