@@ -27,13 +27,13 @@
 > false
 
 < f := @(a b c)[if a = b then sqrt(c) else с^a] -- лямбда
-> f = Func => (Num Num Num) -> Num
+> f = Func => (Num, Num, Num) -> Num
 
 < f(1 2 3)
 > 3
 
 < b := (1 2 3) -- кортеж
-> b = (Int Int Int)
+> b = (Int, Int, Int)
 
 < b = [1 2 3] -- квадратные скобки = круглым, они нужны для лучшей читаемости
 > true
