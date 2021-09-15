@@ -3,11 +3,12 @@ module Main where
 import Lexer
 import Token
 import Parser
+import Help
 
 import System.IO
 import Data.Char
 
-license = "\n\tFungsi - a functional programming language for simple math calculations\n" ++
+license = "\n\tfungsi - a functional programming language for simple math calculations\n" ++
           "\tCopyright (C) 2021  Stasenko Konstantin\n" ++ "\n\n" ++
 
           "\tThis program is free software: you can redistribute it and/or modify\n" ++
@@ -42,12 +43,17 @@ repl = do
     putStr "< "
     hFlush stdout
     line <- getLine
-    case line of
-        "quit()"  -> return ()
-        "license()" -> putStrLn license
-        _   -> do
-            putStr "> "
-            tokens <- return (scan $ map toLower line)
-            exprs  <- return (parse tokens)
-            putStrLn $ show tokens --exprs
-            repl
+    isValid <- return $ isValidParnts line
+    sndValid <- return $ show $ snd3 isValid
+    thdValid <- return $ show $ thd3 isValid
+    if fst3 isValid then case line of
+                             "quit()"  -> return ()
+                             "license()" -> putStrLn license
+                             _   -> do
+                                 putStr "> "
+                                 tokens <- return (scan $ map toLower line)
+                                 exprs  <- return (parse tokens)
+                                 putStrLn $ show tokens --exprs
+                                 repl
+        else error $ "Syntax error: missing closing parenthesis, line = " 
+                    ++ sndValid ++ ", n = " ++ thdValid

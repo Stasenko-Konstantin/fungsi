@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fungsi/GUI"
+	"Stasenko-Konstantin/fungsi/GUI"
 )
 
 func main() {

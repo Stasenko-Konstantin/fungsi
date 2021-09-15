@@ -13,6 +13,9 @@ data Category = None | Num | Name | InfixOp
 
 data Token    = Token { token :: TokenType, content :: String, suptype :: Category }
 
+instance Eq Token where
+    (==) (Token _ c1 _) (Token _ c2 _) = c1 == c2
+
 instance Show Token where
     show (Token token content _) = 
         " {token = " ++ (show token) ++ 

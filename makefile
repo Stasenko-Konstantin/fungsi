@@ -1,5 +1,6 @@
 fungsi: src
 	cabal build
-
-main: main.go
-	go build main.go
+	fyne-cross windows -arch=386
+	cp fyne-cross/bin/windows-386/fungsi.exe fungsi.exe
+	rm -rf fyne-cross
+	rm Icon.png

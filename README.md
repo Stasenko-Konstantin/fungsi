@@ -66,4 +66,5 @@
 > f4 = Func => Num | Nil
 
 < quit()
+$
 ```
