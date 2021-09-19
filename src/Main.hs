@@ -8,7 +8,6 @@ import Help
 import System.IO
 import Data.Char
 import System.Console.Haskeline
-import Control.Monad.Trans.Class
 import Control.Monad.IO.Class
 
 license = "\n\tfungsi - a functional programming language for simple math calculations\n" ++

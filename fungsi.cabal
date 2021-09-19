@@ -17,9 +17,13 @@ cabal-version:       >=1.10
 
 executable fungsi
   main-is:             Main.hs
-  -- other-modules:
+  other-modules:       Help, 
+                       Lexer,
+                       Parser,
+                       Token
   -- other-extensions:
   build-depends:       base >=4.12 && <4.13,
-  			parsec >=3.1.14.0
+                       parsec >=3.1.14.0,
+                       haskeline >=0.7.4.3
   hs-source-dirs:      src
   default-language:    Haskell2010
