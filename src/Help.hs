@@ -1,5 +1,3 @@
-{-# LANGUAGE TemplateHaskell #-}
-
 module Help where 
 
 unfoldr :: (b -> Maybe (a, b)) -> b -> [a]

@@ -7,6 +7,9 @@ import Help
 
 import System.IO
 import Data.Char
+import System.Console.Haskeline
+import Control.Monad.Trans.Class
+import Control.Monad.IO.Class
 
 license = "\n\tfungsi - a functional programming language for simple math calculations\n" ++
           "\tCopyright (C) 2021  Stasenko Konstantin\n" ++ "\n\n" ++
@@ -29,31 +32,35 @@ license = "\n\tfungsi - a functional programming language for simple math calcul
           "\t    github - Stasenko-Konstantin\n\n"
 
 
+
+
 main :: IO ()
 main = do
     putStrLn "\t       Fungsi Copyright (C) 2021  Stasenko Konstantin"
     putStrLn "\t       This program comes with ABSOLUTELY NO WARRANTY."
     putStrLn "\tThis is free software, and you are welcome to redistribute it"
     putStrLn "\t   under certain conditions; type `license()' for details.\n"
-    repl
+    runInputT defaultSettings repl
 
 
-repl :: IO ()
+repl :: InputT IO ()
 repl = do 
-    putStr "< "
-    hFlush stdout
-    line <- getLine
-    isValid <- return $ isValidParnts line
+    return $ putStr "< "
+    line <- getInputLine "< " 
+    iLine <- case line of
+        Nothing -> return ""
+        Just iLine -> return iLine :: InputT IO String
+    isValid <- return $ isValidParnts iLine
     sndValid <- return $ show $ snd3 isValid
     thdValid <- return $ show $ thd3 isValid
-    if fst3 isValid then case line of
+    if fst3 isValid then case iLine of
                              "quit()"  -> return ()
-                             "license()" -> putStrLn license
+                             "license()" -> liftIO $ putStrLn license
                              _   -> do
-                                 putStr "> "
-                                 tokens <- return (scan $ map toLower line)
+                                 return $ putStr "> "
+                                 tokens <- liftIO $ return (scan $ map toLower iLine)
                                  exprs  <- return (parse tokens)
-                                 putStrLn $ show exprs
+                                 liftIO $ putStrLn $ show exprs
                                  repl
-        else error $ "Syntax error: missing closing parenthesis, line = " 
-                    ++ sndValid ++ ", n = " ++ thdValid
+    else error $ "Syntax error: missing closing parenthesis, line = " 
+               ++ sndValid ++ ", n = " ++ thdValid
