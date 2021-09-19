@@ -53,7 +53,7 @@ repl = do
                                  putStr "> "
                                  tokens <- return (scan $ map toLower line)
                                  exprs  <- return (parse tokens)
-                                 putStrLn $ show tokens --exprs
+                                 putStrLn $ show exprs
                                  repl
         else error $ "Syntax error: missing closing parenthesis, line = " 
                     ++ sndValid ++ ", n = " ++ thdValid

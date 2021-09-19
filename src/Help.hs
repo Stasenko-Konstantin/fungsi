@@ -1,3 +1,5 @@
+{-# LANGUAGE TemplateHaskell #-}
+
 module Help where 
 
 unfoldr :: (b -> Maybe (a, b)) -> b -> [a]
@@ -22,9 +24,13 @@ isValidParnts string = help string 0 0 0 0
     where
         help :: String -> Int -> Int -> Int -> Int -> (Bool, Int, Int)
         help [] push pop line n = (push == pop, line, n)
-        help ('(':xs)  push pop line n = help xs (push + 1) pop line (n + 1)
-        help ('[':xs)  push pop line n = help xs (push + 1) pop line (n + 1)
-        help (')':xs)  push pop line n = help xs push (pop + 1) line (n + 1)
-        help (']':xs)  push pop line n = help xs push (pop + 1) line (n + 1)
         help ('\n':xs) push pop line n = help xs push (pop + 1) (line + 1) (n + 1)
-        help (x:xs)    push pop line n = help xs push pop line (n + 1)
+        
+        help (x:xs) push pop line n | x == '(' || x == '[' = 
+             help xs (push + 1) pop line (n + 1)
+        
+        help (x:xs) push pop line n | x == ')' || x == ']' = 
+             help xs push (pop + 1) line (n + 1)
+
+        help (x:xs) push pop line n | otherwise = 
+             help xs push pop line (n + 1)
