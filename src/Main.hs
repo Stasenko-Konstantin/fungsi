@@ -43,23 +43,23 @@ main = do
 
 
 repl :: InputT IO ()
-repl = do 
+repl = do
     return $ putStr "< "
-    line <- getInputLine "< " 
+    line <- getInputLine "< "
     iLine <- case line of
         Nothing -> return ""
         Just iLine -> return iLine :: InputT IO String
-    isValid <- return $ isValidParnts iLine
-    sndValid <- return $ show $ snd3 isValid
-    thdValid <- return $ show $ thd3 isValid
+    let isValid = isValidParnts iLine
+    let sndValid = show $ snd3 isValid
+    let thdValid = show $ thd3 isValid
     if fst3 isValid then case iLine of
                              "quit()"  -> return ()
                              "license()" -> liftIO $ putStrLn license
                              _   -> do
                                  return $ putStr "> "
                                  tokens <- liftIO $ return (scan $ map toLower iLine)
-                                 exprs  <- return (parse tokens)
-                                 liftIO $ putStrLn $ show exprs
+                                 let exprs = parse tokens
+                                 liftIO $ print exprs
                                  repl
-    else error $ "Syntax error: missing closing parenthesis, line = " 
+    else error $ "Syntax error: missing closing parenthesis, line = "
                ++ sndValid ++ ", n = " ++ thdValid

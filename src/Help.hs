@@ -1,4 +1,4 @@
-module Help where 
+module Help where
 
 unfoldr :: (b -> Maybe (a, b)) -> b -> [a]
 unfoldr f b = case f b of
@@ -23,12 +23,12 @@ isValidParnts string = help string 0 0 0 0
         help :: String -> Int -> Int -> Int -> Int -> (Bool, Int, Int)
         help [] push pop line n = (push == pop, line, n)
         help ('\n':xs) push pop line n = help xs push (pop + 1) (line + 1) (n + 1)
-        
-        help (x:xs) push pop line n | x == '(' || x == '[' = 
+
+        help (x:xs) push pop line n | x == '(' || x == '[' =
              help xs (push + 1) pop line (n + 1)
-        
-        help (x:xs) push pop line n | x == ')' || x == ']' = 
+
+        help (x:xs) push pop line n | x == ')' || x == ']' =
              help xs push (pop + 1) line (n + 1)
 
-        help (x:xs) push pop line n | otherwise = 
+        help (x:xs) push pop line n =
              help xs push pop line (n + 1)
