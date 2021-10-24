@@ -17,7 +17,7 @@
 < A := 26 -- язык регистронезависим, а все "переменные", на самом деле константы
 > Override error: a = 25
 
-< if not a = 5! then true else false -- ветка else обязательная
+< if a /= 5! then true else false -- ветка else обязательная
 > false
 
 < 5 = 5.0

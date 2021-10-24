@@ -58,6 +58,7 @@ repl = do
                              _   -> do
                                  return $ putStr "> "
                                  tokens <- liftIO $ return (scan $ map toLower iLine)
+                                 liftIO $ print tokens
                                  let exprs = parse tokens
                                  liftIO $ print exprs
                                  repl

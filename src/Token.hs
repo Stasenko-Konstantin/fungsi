@@ -1,7 +1,7 @@
 module Token where
 
 data TokenType =  PLUS      | MINUS  | STAR   | SLASH | RSLASH | EXPCLAMATION | POWER
-                | BIND      | EQUAL  | DEQUAL | LESS  | GREAT  | LEQUAL       | GEQUAL
+                | BIND      | EQUAL  | DEQUAL | LESS  | GREAT  | LEQUAL       | GEQUAL | NEQUAL
                 | FALSE     | TRUE   | IF     | THEN  | ELSE   | AND          | OR     | NOT
                 | NAME      | LAMBDA
                 | INT       | FLOAT

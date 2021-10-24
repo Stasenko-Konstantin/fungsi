@@ -19,7 +19,9 @@ scan source = help [] source
                 '+'  -> help (Token PLUS       "+" InfixOp  : tokens) ode
                 '-'  -> help (Token MINUS      "-" InfixOp  : tokens) ode
                 '*'  -> help (Token STAR       "*" InfixOp  : tokens) ode
-                '/'  -> help (Token SLASH      "/" InfixOp  : tokens) ode
+                '/'  -> if head ode == '='
+                    then help (Token NEQUAL     "/=" InfixOp   : tokens) $ slice ode 1 $ length ode
+                    else help (Token SLASH      "/"  InfixOp   : tokens) ode
                 '^'  -> help (Token POWER      "^" InfixOp  : tokens) ode
                 '\\' -> help (simpleToken RSLASH       "\\" : tokens) ode
                 '!'  -> help (simpleToken EXPCLAMATION "!"  : tokens) ode
