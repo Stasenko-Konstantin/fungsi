@@ -50,18 +50,18 @@
 < log(-1)
 > nil
 
-< f3 := @()\
+< f3 := @()
 | []
 > f3 = Func => Nil
 
 < type(log)
 > Func => Num | Nil
 
-< f4 := @(a)\
+< f4 := @(a)
 | [sqrt(log(a)]
 > Raw Nil error: log => Num | Nil; sqrt( param => Num )
 
-< f4 := @(a)\
+< f4 := @(a)
 | [if isNil(log(a)) then nil else sqrt(log(a))]
 > f4 = Func => Num | Nil
 
