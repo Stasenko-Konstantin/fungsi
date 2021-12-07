@@ -1,11 +1,10 @@
-# fungsi (еще далек от завершения)
-Небольшой функциональный язык программирования для простых математических расчетов
+# fungsi (is far from complete)
+A small functional programming language for mathematical calculations
 
 
-### Примеры
-< - приглашение REPL\`а                                                                 
-\> - вывод интерпретатора                                                                                             
-| - продолжение ввода
+### Examples
+< - REPL prompt                                                                 
+\> - interpreter output
 
 ```haskell
 < 1 + 1 
@@ -14,10 +13,10 @@
 < a := 5!
 > a = 25
 
-< A := 26 -- язык регистронезависим, а все "переменные", на самом деле константы
+< A := 26 -- language is case-independent, and all "variables" are actually constants
 > Override error: a = 25
 
-< if a /= 5! then true else false -- ветка else обязательная
+< if a /= 5! then true else false -- branch else mandatory
 > false
 
 < 5 = 5.0
@@ -26,7 +25,7 @@
 < 5 == 5.0
 > false
 
-< f := a b c -> if a = b then sqrt(c) else с^a -- лямбда
+< f := a b c -> if a = b then sqrt(c) else с^a -- lambda
 > f = Func => (Num, Num, Num) -> Num
 
 < f 1 2 3
@@ -35,7 +34,7 @@
 < b := (1 2 3) -- кортеж
 > b = (Int, Int, Int)
 
-< b = [1 2 3] -- квадратные скобки = круглым, они нужны для лучшей читаемости
+< b = [1 2 3] -- square brackets are equal to round brackets, they are necessary for better readability
 > true
 
 < f b
