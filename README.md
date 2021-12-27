@@ -16,7 +16,7 @@ A small functional programming language for mathematical calculations
 < A := 26 -- language is case-independent, and all "variables" are actually constants
 > Override error: a = 25
 
-< if a /= 5! then true else false -- branch else mandatory
+< if a /= fac 5 then true else false -- branch else mandatory
 > false
 
 < 5 = 5.0
@@ -31,10 +31,10 @@ A small functional programming language for mathematical calculations
 < f 1 2 3
 > 3
 
-< b := (1 2 3) -- кортеж
+< b := (1, 2, 3) -- кортеж
 > b = (Int, Int, Int)
 
-< b = [1 2 3] -- square brackets are equal to round brackets, they are necessary for better readability
+< b = [1, 2, 3] -- square brackets are equal to round brackets, they are necessary for better readability
 > true
 
 < f b
@@ -67,3 +67,10 @@ A small functional programming language for mathematical calculations
 < quit
 $
 ```
+
+### Planned features
+- [ ] Green threads
+- [ ] Hindley-Milner type inference
+- [ ] First-class functions
+- [ ] Sum types
+- [ ] Pattern matching
