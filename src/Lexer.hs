@@ -19,14 +19,13 @@ scan source = help [] source
                 '+'  -> help (Token PLUS       "+" InfixOp  : tokens) ode
                 '-'  -> help (Token MINUS      "-" InfixOp  : tokens) ode
                 '*'  -> help (Token STAR       "*" InfixOp  : tokens) ode
-                '/'  -> if head ode == '='
-                    then help (Token NEQUAL     "/=" InfixOp   : tokens) $ slice ode 1 $ length ode
-                    else help (Token SLASH      "/"  InfixOp   : tokens) ode
                 '^'  -> help (Token POWER      "^" InfixOp  : tokens) ode
-                '\\' -> help (simpleToken RSLASH       "\\" : tokens) ode
                 '!'  -> help (simpleToken EXPCLAMATION "!"  : tokens) ode
                 '@'  -> help (simpleToken LAMBDA       "@"  : tokens) ode
                 '\n' -> help (simpleToken SEMICOLON    "\n" : tokens) ode
+                _ | c == '/' || c == '\\' -> if head ode == '='
+                                    then help (Token NEQUAL     "/=" InfixOp   : tokens) $ slice ode 1 $ length ode
+                                    else help (Token SLASH      "/"  InfixOp   : tokens) ode
                 _ | c == '(' || c == '[' -> help (simpleToken LPAREN "(" : tokens) ode
                 _ | c == ')' || c == ']' -> help (simpleToken RPAREN ")" : tokens) ode
                 _ | c == '=' || c == '<' || c == '>' -> addEqual code
@@ -68,7 +67,8 @@ scan source = help [] source
                             ('o':'r':xs)             -> (OR,    "or",    Name, xs)
                             ('n':'o':'t':xs)         -> (NOT,   "not",   Name, xs)
                             ('n':'i':'l':xs)         -> (NIL,   "nil",   Name, xs)
-                            xs                       -> (NAME,  takeWhile p code, Name,
-                                                                dropWhile p xs)
+                            xs                       -> (NAME,  takeWhile isName code, Name,
+                                                                dropWhile isName xs)
 
-p c = isLetter c || isNumber c
+isName :: Char -> Bool
+isName c = isLetter c || isNumber c

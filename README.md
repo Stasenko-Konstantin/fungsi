@@ -31,7 +31,7 @@ A small functional programming language for mathematical calculations
 < f 1 2 3
 > 3
 
-< b := (1, 2, 3) -- кортеж
+< b := (1, 2, 3) -- tuple
 > b = (Int, Int, Int)
 
 < b = [1, 2, 3] -- square brackets are equal to round brackets, they are necessary for better readability
