@@ -10,7 +10,7 @@ A small functional programming language for mathematical calculations
 < 1 + 1 
 > 2
 
-< a := 5!
+< a := fac 5
 > a = 25
 
 < A := 26 -- language is case-independent, and all "variables" are actually constants
@@ -25,23 +25,20 @@ A small functional programming language for mathematical calculations
 < 5 == 5.0
 > false
 
-< f := a b c -> if a = b then sqrt(c) else с^a -- lambda
-> f = Func => (Num, Num, Num) -> Num
+< f := [a, b, c | if a = b then sqrt(c) else с^a] -- lambda
+> f = Func : (Num, Num, Num) -> Num
 
 < f 1 2 3
 > 3
 
-< b := (1, 2, 3) -- tuple
+< b := {1, 2, 3} -- tuple
 > b = (Int, Int, Int)
-
-< b = [1, 2, 3] -- square brackets are equal to round brackets, they are necessary for better readability
-> true
 
 < f b
 > 3
 
-< f2 := ->
-> f2 = Func => Nil
+< f2 := [|]
+> f2 = Func : Nil
 
 < f2
 > nil
@@ -49,20 +46,16 @@ A small functional programming language for mathematical calculations
 < log 0 - 1
 > nil
 
-< f3 := 1 +
-| 1
-> f3 = 2
-
 < type log
-> Func => Num | Nil
+> Func : (Num) -> Num | Nil
 
-< f4 := a ->
-| sqrt (log a)
-> Raw Nil error: log => Num | Nil; sqrt ( param => Num )
+< f3 := [a |
+| sqrt (log a) ]
+> Raw Nil error: log : (Num) -> Num | Nil; sqrt (Num)
 
-< f4 := a ->
-| if isNil (log a) then nil else sqrt (log a)
-> f4 = Func => Num | Nil
+< f3 := [a |
+| if isNil (log a) then nil else sqrt (log a)]
+> f4 = Func : (Num) -> Num | Nil
 
 < quit
 $
