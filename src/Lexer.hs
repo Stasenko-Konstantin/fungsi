@@ -31,12 +31,8 @@ scan source = help [] source
             if head ode == '='
               then help (Token NEQUAL "/=" InfixOp : tokens) $ slice ode 1 $ length ode
               else help (Token SLASH "/" InfixOp : tokens) ode
-        _ | c == '(' -> help (simpleToken LPAREN "(" : tokens) ode
-        _ | c == ')' -> help (simpleToken RPAREN ")" : tokens) ode
-        _ | c == '[' -> help (simpleToken LCPAREN "[" : tokens) ode
-        _ | c == ']' -> help (simpleToken RCPAREN "]" : tokens) ode
-        _ | c == '{' -> help (simpleToken LBRACE "{" : tokens) ode
-        _ | c == '}' -> help (simpleToken RBRACE "}" : tokens) ode
+        _ | c == '(' || c == '[' -> help (simpleToken LPAREN "(" : tokens) ode
+        _ | c == ')' || c == ']' -> help (simpleToken RPAREN ")" : tokens) ode
         _ | c == '=' || c == '<' || c == '>' -> addEqual code
         _ | isNumber c -> addNum code False ""
         _ | isLetter c -> addName code

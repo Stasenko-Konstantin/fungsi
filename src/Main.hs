@@ -51,7 +51,9 @@ repl = do
     Nothing -> return ""
     Just iLine -> return iLine :: InputT IO String
   let isValid = isValidParnts iLine
-  if isValid
+  let sndValid = show $ snd3 isValid
+  let thdValid = show $ thd3 isValid
+  if fst3 isValid
     then case iLine of
       "quit()" -> return ()
       "license()" -> liftIO $ putStrLn license
@@ -63,4 +65,8 @@ repl = do
         liftIO $ print exprs
         repl
     else
-      error "Syntax error: missing closing parenthesis"
+      error $
+        "Syntax error: missing closing parenthesis, line = "
+          ++ sndValid
+          ++ ", n = "
+          ++ thdValid

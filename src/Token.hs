@@ -26,12 +26,10 @@ data TokenType
   | LAMBDA
   | INT
   | FLOAT
+  | RPAREN
   | LPAREN
   | RCPAREN
   | LCPAREN
-  | RPAREN
-  | LBRACE
-  | RBRACE
   | COMMA
   | VBAR
   | SEMICOLON
