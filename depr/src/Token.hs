@@ -5,7 +5,6 @@ data TokenType
   | MINUS
   | STAR
   | SLASH
-  | POWER
   | BIND
   | EQUAL
   | DEQUAL

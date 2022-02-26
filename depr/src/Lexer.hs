@@ -18,14 +18,11 @@ scan source = help [] source
       case c of
         '+' -> help (Token PLUS "+" InfixOp : tokens) ode
         '*' -> help (Token STAR "*" InfixOp : tokens) ode
-        '^' -> help (Token POWER "^" InfixOp : tokens) ode
         '|' -> help (Token VBAR "|" InfixOp : tokens) ode
         ',' -> help (Token COMMA "," InfixOp : tokens) ode
         '\n' -> help (simpleToken SEMICOLON "\n" : tokens) ode
-        '-' ->
-          if head ode == '>'
-            then help (simpleToken LAMBDA "->" : tokens) $ tail ode
-            else help (Token MINUS "-" InfixOp : tokens) ode
+        '@' -> help (simpleToken LAMBDA "->" : tokens) ode
+        '-' -> help (Token MINUS "-" InfixOp : tokens) ode
         _
           | c == '/' || c == '\\' || c == '!' ->
             if head ode == '='

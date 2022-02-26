@@ -40,7 +40,7 @@ main = do
   putStrLn "\t       Fungsi Copyright (C) 2021  Stasenko Konstantin"
   putStrLn "\t       This program comes with ABSOLUTELY NO WARRANTY."
   putStrLn "\tThis is free software, and you are welcome to redistribute it"
-  putStrLn "\t   under certain conditions; type `license()' for details.\n"
+  putStrLn "\t   under certain conditions; type `license' for details.\n"
   runInputT defaultSettings repl
 
 repl :: InputT IO ()
@@ -55,8 +55,8 @@ repl = do
   let thdValid = show $ thd3 isValid
   if fst3 isValid
     then case iLine of
-      "quit()" -> return ()
-      "license()" -> liftIO $ putStrLn license
+      "quit" -> return ()
+      "license" -> liftIO $ putStrLn license
       _ -> do
         return $ putStr "> "
         tokens <- liftIO $ return (scan $ map toLower iLine)

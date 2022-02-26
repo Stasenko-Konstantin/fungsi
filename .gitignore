@@ -1,3 +1,5 @@
-dist-newstyle
-dist
-.ghc.environment.x86_64-linux-8.6.5
+.bsp
+.idea
+project
+target
+out
