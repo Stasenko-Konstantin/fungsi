@@ -3,6 +3,7 @@ import scala.annotation.tailrec
 object Lexer {
   def scan(code: String): List[Token] = {
     val symbols = "+-:\\|/?.>,<!#@`^~%&*-_+="
+    val keywords = Map("def" -> Token.DEF)
 
     @tailrec
     def help(tokens: List[Token], code: String): List[Token] = {
@@ -15,9 +16,18 @@ object Lexer {
         case '~' => help(new Token(Token.QUOTE, "~") +: tokens, code.tail)
         case '^' => help(new Token(Token.RETURN, "^") +: tokens, code.tail)
         case '|' => help(new Token(Token.DELIMITER, "|") +: tokens, code.tail)
+        case ';' => help(new Token(Token.SEMICOLON, "\\n") +: tokens, code.tail)
+        case ',' => help(new Token(Token.SEMICOLON, "\\n") +: tokens, code.tail)
+        case ':' =>
+          if (code.tail.head == '=') {
+            help(new Token(Token.BIND, ":=") +: tokens, code.tail.tail)
+          } else {
+            val name = addName(code.tail, "")
+            help(new Token(Token.ATOM, ":" + name._1) +: tokens, name._2)
+
+          }
         case '(' | '[' => help(new Token(Token.LPAREN, "(") +: tokens, code.tail)
         case ')' | ']' => help(new Token(Token.RPAREN, ")") +: tokens, code.tail)
-        case '\n' => help(new Token(Token.SEMICOLON, "\\n") +: tokens, code.tail)
         case '\r' | '\t' | ' ' => help(tokens, code.tail)
         case '\'' =>
           val seq = addSeq(code.tail, "", '\'')
@@ -30,7 +40,12 @@ object Lexer {
           help(new Token(Token.NUM, num._1) +: tokens, num._2)
         case _ if c.isLetter || symbols.contains(c) =>
           val name = addName(code, "")
-          help(new Token(Token.NAME, name._1) +: tokens, name._2)
+          keywords get name._1 match {
+            case Some(tok) if tok == Token.DEF =>
+              help(new Token(keywords(name._1), name._1) +: tokens, name._2)
+            case None =>
+              help(new Token(Token.NAME, name._1) +: tokens, name._2)
+          }
         case _ =>
           println("lexer error")
           Nil
@@ -64,6 +79,7 @@ object Lexer {
       }
       addName(code.tail, code.head +: res)
     }
+
     help(Nil, code)
   }
 }
