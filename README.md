@@ -1,6 +1,6 @@
 # fungsi
 inspired by Scala and Common Lisp                     
-Looks like ML and Lisp
+looks like ML and Lisp
 
 ```smalltalk
 let f x y := let r := + x y,
