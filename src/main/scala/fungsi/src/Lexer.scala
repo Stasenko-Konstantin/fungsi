@@ -14,7 +14,7 @@ object Lexer:
       val c = code.head
       c match
         case '@' => help(new Token(Token.LAMBDA, "@") +: tokens, code.tail)
-        case '~' => help(new Token(Token.QUOTE, "~") +: tokens, code.tail)
+        case '$' => help(new Token(Token.QUOTE, "~") +: tokens, code.tail)
         case '^' => help(new Token(Token.RETURN, "^") +: tokens, code.tail)
         case '|' => help(new Token(Token.DELIMITER, "|") +: tokens, code.tail)
         case ';' => help(new Token(Token.SEMICOLON, ";") +: tokens, code.tail)
@@ -24,7 +24,7 @@ object Lexer:
             help(new Token(Token.BIND, ":=") +: tokens, code.tail.tail)
           else
             val name = addName(code.tail, "")
-            help(new Token(Token.ATOM, ":" + name._1) +: tokens, name._2)
+            help(new Token(Token.NAME, ":" + name._1) +: tokens, name._2)
         case '(' | '[' => help(new Token(Token.LPAREN, "(") +: tokens, code.tail)
         case ')' | ']' => help(new Token(Token.RPAREN, ")") +: tokens, code.tail)
         case '\r' | '\t' | ' ' => help(tokens, code.tail)

@@ -7,6 +7,8 @@ class Token(val token: TokenType, val content: String):
   
   def toList: List[Token] = List(this)
 
+  def equals(that: Token): Boolean = this.content == that.content
+
 object Token:
   case object DEF extends TokenType // def
   case object BIND extends TokenType // :=
@@ -16,7 +18,7 @@ object Token:
   case object ATOM extends TokenType // :{name}
   case object LAMBDA extends TokenType // @
   case object DELIMITER extends TokenType // |
-  case object QUOTE extends TokenType // ~
+  case object QUOTE extends TokenType // $
   case object RETURN extends TokenType // ^
   case object NUM extends TokenType
   case object CHAR extends TokenType

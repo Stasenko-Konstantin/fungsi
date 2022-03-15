@@ -14,5 +14,6 @@ object Main extends App:
       System.exit(1)
     val tokens = Lexer.scan(input)
     println(tokens)
+    println(tokens == List(Token(Token.NAME, "a"), Token(Token.EOF, "")))
     repl()
 
