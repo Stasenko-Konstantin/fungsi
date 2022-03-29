@@ -6,7 +6,7 @@ object Lexer:
   def scan(code: String): List[Token] =
     val symbols = "+-\\|/?.><!#@`^~%&*-_+="
     val keywords = Map("def" -> Token.DEF)
-  
+
     @tailrec
     def help(tokens: List[Token], code: String): List[Token] =
       if code == "" then
@@ -17,17 +17,17 @@ object Lexer:
         case '$' => help(new Token(Token.QUOTE, "~") +: tokens, code.tail)
         case '^' => help(new Token(Token.RETURN, "^") +: tokens, code.tail)
         case '|' => help(new Token(Token.DELIMITER, "|") +: tokens, code.tail)
-        case ';' => help(new Token(Token.SEMICOLON, ";") +: tokens, code.tail)
+        case ';' => help(new Token(Token.SEMICOLON, ";") +: tokens, scipSpaces(code.tail))
         case ',' => help(new Token(Token.COMMA, ",") +: tokens, code.tail)
         case ':' =>
           if code.tail.head == '=' then
             help(new Token(Token.BIND, ":=") +: tokens, code.tail.tail)
           else
             val name = addName(code.tail, "")
-            help(new Token(Token.NAME, ":" + name._1) +: tokens, name._2)
+            help(new Token(Token.ATOM, ":" + name._1) +: tokens, name._2)
         case '(' | '[' => help(new Token(Token.LPAREN, "(") +: tokens, code.tail)
         case ')' | ']' => help(new Token(Token.RPAREN, ")") +: tokens, code.tail)
-        case '\r' | '\t' | ' ' => help(tokens, code.tail)
+        case '\r' | '\t' | '\n' | ' ' => help(tokens, code.tail)
         case '\'' =>
           val seq = addSeq(code.tail, "", '\'')
           help(new Token(Token.CHAR, seq._1) +: tokens, seq._2)
@@ -49,32 +49,39 @@ object Lexer:
           println("lexer error")
           Nil
     end help
-  
+
     @tailrec
     def addSeq(code: String, res: String, end: Char): (String, String) =
       if code.head == end then
         return (res.reverse, code.tail)
       addSeq(code.tail, code.head +: res, end)
     end addSeq
-  
+
     @tailrec
     def addNum(code: String, res: String): (String, String) =
       def isDigit(c: Char): Boolean = c.isDigit || c == '.'
-  
+
       if !isDigit(code.head) then
         return (res.reverse, code)
       addNum(code.tail, code.head +: res)
     end addNum
-    
+
     @tailrec
     def addName(code: String, res: String): (String, String) =
       def isLetter(c: Char): Boolean = c.isLetter || c.isDigit || symbols.contains(c)
-  
+
       if !isLetter(code.head) then
         return (res.reverse.toLowerCase, code)
       addName(code.tail, code.head +: res)
     end addName
-    
+
+    @tailrec
+    def scipSpaces(code: String): String =
+      if code.head == '\n' then
+        code.tail
+      else
+        scipSpaces(code.tail)
+
     help(Nil, code)
   end scan
 end Lexer
