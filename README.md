@@ -1,5 +1,5 @@
-# fungsi
-inspired by Scala and Racket
+# fungsi (is far from complete)
+inspired by Scala and Lisp
 
 ```smalltalk
 let $ f x y := let $ r := + x y;
