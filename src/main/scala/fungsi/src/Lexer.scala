@@ -28,12 +28,6 @@ object Lexer:
         case '(' | '[' => help(new Token(Token.LPAREN, "(") +: tokens, code.tail)
         case ')' | ']' => help(new Token(Token.RPAREN, ")") +: tokens, code.tail)
         case '\r' | '\t' | '\n' | ' ' => help(tokens, code.tail)
-        case '\'' =>
-          val seq = addSeq(code.tail, "", '\'')
-          help(new Token(Token.CHAR, seq._1) +: tokens, seq._2)
-        case '"' =>
-          val seq = addSeq(code.tail, "", '"')
-          help(new Token(Token.STRING, seq._1) +: tokens, seq._2)
         case _ if c.isDigit =>
           val num = addNum(code, "")
           help(new Token(Token.NUM, num._1) +: tokens, num._2)

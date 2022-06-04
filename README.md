@@ -1,5 +1,6 @@
 # fungsi (is far from complete)
-inspired by Scala and Lisp
+---
+inspired by Clojure and Scala
 
 ```smalltalk
 let $ f x y := let $ r := + x y;
@@ -11,3 +12,4 @@ def f := @[x y | def r := + x y
                  , ^r]
 ```
 
+it`s frozen on time while I learn Clojure and interpreters
