@@ -1,6 +1,11 @@
 # fungsi (is far from complete)
 ---
-inspired by Clojure and Scala
+! Its just my sandbox !                               
+inspired by Lisps and Scala
+
+- call-by-value
+- HOF
+- macros
 
 ```smalltalk
 let $ f x y := let $ r := + x y;
