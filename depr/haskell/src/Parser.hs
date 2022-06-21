@@ -41,14 +41,14 @@ parse tokens@(t : okens) = case t of
     parseError = error "Parse error"
 
 parseGroup :: [Token] -> Expr
-parseGroup tokens = help tokens 0 0 0 0 []
+parseGroup tokens = HELP tokens 0 0 0 0 []
   where
-    help :: [Token] -> Int -> Int -> Int -> Int -> [Token] -> Expr -- endn - индекс конца Group, end - Токены после )
-    help [] push pop n endn end =
+    HELP :: [Token] -> Int -> Int -> Int -> Int -> [Token] -> Expr -- endn - индекс конца Group, end - Токены после )
+    HELP [] push pop n endn end =
       if n == length tokens
         then Group $ parse $ slice tokens 1 (endn - 1)
         else Next (Group $ parse $ slice tokens 1 (endn - 1)) (parse end)
-    help ((Token NIL _ _) : ts) push pop n endn end = help ts push (pop + 1) (n + 1) endn end
-    help ((Token _ "(" _) : ts) push pop n endn end = help ts (push + 1) pop (n + 1) endn end
-    help ((Token _ ")" _) : ts) push pop n endn end = help ts push (pop + 1) (n + 1) n ts
-    help (t : ts) push pop n endn end = help ts push pop (n + 1) endn end
+    HELP ((Token NIL _ _) : ts) push pop n endn end = HELP ts push (pop + 1) (n + 1) endn end
+    HELP ((Token _ "(" _) : ts) push pop n endn end = HELP ts (push + 1) pop (n + 1) endn end
+    HELP ((Token _ ")" _) : ts) push pop n endn end = HELP ts push (pop + 1) (n + 1) n ts
+    HELP (t : ts) push pop n endn end = HELP ts push pop (n + 1) endn end

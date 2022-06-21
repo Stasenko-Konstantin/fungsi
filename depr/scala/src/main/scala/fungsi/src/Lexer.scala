@@ -8,41 +8,41 @@ object Lexer:
     val keywords = Map("def" -> Token.DEF)
 
     @tailrec
-    def help(tokens: List[Token], code: String): List[Token] =
+    def HELP(tokens: List[Token], code: String): List[Token] =
       if code == "" then
         return (new Token(Token.EOF, "") +: tokens).reverse
       val c = code.head
       c match
-        case '@' => help(new Token(Token.LAMBDA, "@") +: tokens, code.tail)
-        case '$' => help(new Token(Token.QUOTE, "~") +: tokens, code.tail)
-        case '^' => help(new Token(Token.RETURN, "^") +: tokens, code.tail)
-        case '|' => help(new Token(Token.DELIMITER, "|") +: tokens, code.tail)
-        case ';' => help(new Token(Token.SEMICOLON, ";") +: tokens, scipSpaces(code.tail))
-        case ',' => help(new Token(Token.COMMA, ",") +: tokens, code.tail)
+        case '@' => HELP(new Token(Token.LAMBDA, "@") +: tokens, code.tail)
+        case '$' => HELP(new Token(Token.QUOTE, "~") +: tokens, code.tail)
+        case '^' => HELP(new Token(Token.RETURN, "^") +: tokens, code.tail)
+        case '|' => HELP(new Token(Token.DELIMITER, "|") +: tokens, code.tail)
+        case ';' => HELP(new Token(Token.SEMICOLON, ";") +: tokens, scipSpaces(code.tail))
+        case ',' => HELP(new Token(Token.COMMA, ",") +: tokens, code.tail)
         case ':' =>
           if code.tail.head == '=' then
-            help(new Token(Token.BIND, ":=") +: tokens, code.tail.tail)
+            HELP(new Token(Token.BIND, ":=") +: tokens, code.tail.tail)
           else
             val name = addName(code.tail, "")
-            help(new Token(Token.ATOM, ":" + name._1) +: tokens, name._2)
-        case '(' | '[' => help(new Token(Token.LPAREN, "(") +: tokens, code.tail)
-        case ')' | ']' => help(new Token(Token.RPAREN, ")") +: tokens, code.tail)
-        case '\r' | '\t' | '\n' | ' ' => help(tokens, code.tail)
+            HELP(new Token(Token.ATOM, ":" + name._1) +: tokens, name._2)
+        case '(' | '[' => HELP(new Token(Token.LPAREN, "(") +: tokens, code.tail)
+        case ')' | ']' => HELP(new Token(Token.RPAREN, ")") +: tokens, code.tail)
+        case '\r' | '\t' | '\n' | ' ' => HELP(tokens, code.tail)
         case _ if c.isDigit =>
           val num = addNum(code, "")
-          help(new Token(Token.NUM, num._1) +: tokens, num._2)
+          HELP(new Token(Token.NUM, num._1) +: tokens, num._2)
         case _ if c.isLetter || symbols.contains(c) =>
           val name = addName(code, "")
           keywords get name._1 match {
             case Some(tok) if tok == Token.DEF =>
-              help(new Token(keywords(name._1), name._1) +: tokens, name._2)
+              HELP(new Token(keywords(name._1), name._1) +: tokens, name._2)
             case None | Some(_) =>
-              help(new Token(Token.NAME, name._1) +: tokens, name._2)
+              HELP(new Token(Token.NAME, name._1) +: tokens, name._2)
           }
         case _ =>
           println("lexer error")
           Nil
-    end help
+    end HELP
 
     @tailrec
     def addSeq(code: String, res: String, end: Char): (String, String) =
@@ -76,6 +76,6 @@ object Lexer:
       else
         scipSpaces(code.tail)
 
-    help(Nil, code)
+    HELP(Nil, code)
   end scan
 end Lexer
