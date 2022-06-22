@@ -18,6 +18,7 @@ pub enum TokenType {
     NUM,
     LPAREN,    // ( or [
     RPAREN,    // ) or ]
+    NLINE,     // \n
     EOF,
 }
 

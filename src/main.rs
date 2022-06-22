@@ -1,5 +1,6 @@
 mod lexer;
 mod token;
+mod ast;
 
 use std::env::args;
 use std::fs;

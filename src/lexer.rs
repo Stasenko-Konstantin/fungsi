@@ -36,18 +36,20 @@ pub fn scan(input: String, repl: bool) -> Vec<Token> {
                 } else {
                     input = input.add(c.to_string().as_str());
                     tokens.push(
-                        Token{token: TokenType::ATOM, content: ":".to_string(), span: (y, x)})
+                        Token { token: TokenType::ATOM, content: ":".to_string(), span: (y, x) })
                 }
-            },
+            }
             '(' | '[' => tokens.push(
                 Token { token: TokenType::LPAREN, content: "(".to_string(), span: (y, x) }),
             ')' | ']' => tokens.push(
                 Token { token: TokenType::COMMA, content: ")".to_string(), span: (y, x) }),
-            '\r' | '\t' | ' ' => {},
+            '\r' | '\t' | ' ' => {}
             '\n' => {
                 x = 0;
                 y += 1;
-            },
+                tokens.push(
+                    Token { token: TokenType::NLINE, content: "\\n".to_string(), span: (y, x) });
+            }
             _ if c.is_digit(10) => {
                 let mut num: String = String::from(c);
                 loop {
@@ -59,7 +61,7 @@ pub fn scan(input: String, repl: bool) -> Vec<Token> {
                         num = num.add(c.to_string().as_str());
                     } else {
                         input = input.add(c.to_string().as_str());
-                        break
+                        break;
                     }
                 }
                 let len = num.len() as i64;
@@ -78,7 +80,7 @@ pub fn scan(input: String, repl: bool) -> Vec<Token> {
                         name = name.add(c.to_string().as_str());
                     } else {
                         input = input.add(c.to_string().as_str());
-                        break
+                        break;
                     }
                 }
                 let len = name.len() as i64;
@@ -91,9 +93,23 @@ pub fn scan(input: String, repl: bool) -> Vec<Token> {
                 if !repl {
                     exit(1);
                 }
-            },
+            }
         }
         x += 1;
     }
     tokens
+}
+
+#[cfg(test)]
+mod test_lexer {
+    use crate::token::{Token, TokenType};
+
+    #[test]
+    fn scan_test() {
+        assert_eq!(vec![Token { token: TokenType::ATOM, content: ":".to_string(), span: (0, 0) },
+                        Token { token: TokenType::BIND, content: ":=".to_string(), span: (0, 1) },
+                        Token { token: TokenType::NAME, content: "hello".to_string(), span: (0, 4) },
+                        Token { token: TokenType::NUM, content: "123.123".to_string(), span: (0, 14) }],
+                   crate::lexer::scan("::= hello    123.123 ".to_string(), false));
+    }
 }
