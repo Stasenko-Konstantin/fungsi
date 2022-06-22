@@ -3,7 +3,7 @@ use std::ops::Add;
 use std::process::exit;
 use crate::token::{Token, TokenType, make_keywords};
 
-pub fn scan(input: String) -> Vec<Token> {
+pub fn scan(input: String, repl: bool) -> Vec<Token> {
     let mut input: String = input.chars().rev().collect();
     let symbols = "\\|/?.><!#@`^~%&*-_+=";
     let keywords = make_keywords();
@@ -88,7 +88,9 @@ pub fn scan(input: String) -> Vec<Token> {
             }
             _ => {
                 println!("lexer error: y = {}, x = {}, c = {}", y, x, c);
-                exit(1);
+                if !repl {
+                    exit(1);
+                }
             },
         }
         x += 1;

@@ -15,7 +15,7 @@ fn main() {
             let _ = std::io::stdout().flush();
             let mut input = String::new();
             std::io::stdin().read_line(&mut input).unwrap();
-            eval(input)
+            eval(input, true)
         }
     } else if args.len() == 2 {
         match args[1].clone().as_str() {
@@ -29,10 +29,10 @@ fn main() {
 
 fn load(file: &str) {
     let input = fs::read_to_string(file).expect(HELP);
-    eval(input)
+    eval(input, false)
 }
 
-fn eval(input: String) {
-    let tokens = lexer::scan(input);
+fn eval(input: String, repl: bool) {
+    let tokens = lexer::scan(input, repl);
     println!("> {:?}", tokens);
 }
