@@ -2,7 +2,7 @@ use std::collections::HashMap;
 use std::fmt;
 use std::fmt::Formatter;
 
-#[derive(fmt::Debug)]
+#[derive(fmt::Debug, Clone, Copy)]
 pub enum TokenType {
     DEF,       // def
     NIL,       // nil
@@ -27,15 +27,6 @@ pub fn make_keywords() -> HashMap<&'static str, TokenType> {
     keywords.insert("def", TokenType::DEF);
     keywords.insert("nil", TokenType::NIL);
     keywords.insert("object", TokenType::OBJECT);
-    keywords.insert(":=", TokenType::BIND);
-    keywords.insert("=", TokenType::EQ);
-    keywords.insert(",", TokenType::COMMA);
-    keywords.insert(":", TokenType::ATOM);
-    keywords.insert("@", TokenType::LAMBDA);
-    keywords.insert("|", TokenType::DELIMITER);
-    keywords.insert("^", TokenType::RETURN);
-    keywords.insert("(", TokenType::LPAREN);
-    keywords.insert(")", TokenType::RPAREN);
     keywords
 }
 

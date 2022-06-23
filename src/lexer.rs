@@ -1,4 +1,3 @@
-use std::collections::HashMap;
 use std::ops::Add;
 use std::process::exit;
 use crate::token::{Token, TokenType, make_keywords};
@@ -39,10 +38,12 @@ pub fn scan(input: String, repl: bool) -> Vec<Token> {
                         Token { token: TokenType::ATOM, content: ":".to_string(), span: (y, x) })
                 }
             }
+            '=' => tokens.push(
+                Token { token: TokenType::EQ, content: "=".to_string(), span: (y, x) }),
             '(' | '[' => tokens.push(
                 Token { token: TokenType::LPAREN, content: "(".to_string(), span: (y, x) }),
             ')' | ']' => tokens.push(
-                Token { token: TokenType::COMMA, content: ")".to_string(), span: (y, x) }),
+                Token { token: TokenType::RPAREN, content: ")".to_string(), span: (y, x) }),
             '\r' | '\t' | ' ' => {}
             '\n' => {
                 x = 0;
@@ -84,8 +85,14 @@ pub fn scan(input: String, repl: bool) -> Vec<Token> {
                     }
                 }
                 let len = name.len() as i64;
-                tokens.push(
-                    Token { token: TokenType::NAME, content: name, span: (y, x) });
+                if keywords.contains_key(&*name) {
+                    let token = keywords.get(&*name).unwrap();
+                    tokens.push(
+                        Token { token: *token, content: name, span: (y, x) });
+                } else {
+                    tokens.push(
+                        Token { token: TokenType::NAME, content: name, span: (y, x) });
+                }
                 x += len;
             }
             _ => {
@@ -97,6 +104,7 @@ pub fn scan(input: String, repl: bool) -> Vec<Token> {
         }
         x += 1;
     }
+    tokens.push(Token { token: TokenType::EOF, content: "".to_string(), span: (y, x) });
     tokens
 }
 
@@ -109,7 +117,8 @@ mod test_lexer {
         assert_eq!(vec![Token { token: TokenType::ATOM, content: ":".to_string(), span: (0, 0) },
                         Token { token: TokenType::BIND, content: ":=".to_string(), span: (0, 1) },
                         Token { token: TokenType::NAME, content: "hello".to_string(), span: (0, 4) },
-                        Token { token: TokenType::NUM, content: "123.123".to_string(), span: (0, 14) }],
+                        Token { token: TokenType::NUM, content: "123.123".to_string(), span: (0, 14) },
+                        Token { token: TokenType::EOF, content: "".to_string(), span: (0, 15) }],
                    crate::lexer::scan("::= hello    123.123 ".to_string(), false));
     }
 }
