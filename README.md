@@ -1,4 +1,4 @@
-# fungsi (is far from complete)
+# fungsi (is far from complete and blazingly fast 🚀)
 ---
 #### ! Its just my sandbox !                               
 Inspired by Lisps. And many other languages but mainly on Lisps
