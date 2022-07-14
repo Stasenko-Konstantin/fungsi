@@ -11,4 +11,3 @@ def f := @[x y | def r := + x y
                  , println r
                  , ^r]
 ```
-
