@@ -1,10 +1,16 @@
+#![feature(fn_traits)]
+#![feature(unboxed_closures)]
+#![feature(generic_associated_types)]
+
 mod lexer;
 mod token;
-mod ast;
+mod object;
+mod evaluator;
 
 use std::env::args;
 use std::fs;
 use std::io::Write;
+use crate::object::Env;
 
 const HELP: &str = "help";
 
