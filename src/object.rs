@@ -1,7 +1,6 @@
 use std::any::Any;
-use std::borrow::{Borrow, BorrowMut};
+use std::cell::RefCell;
 use std::collections::HashMap;
-use std::env::Args;
 use std::string::String;
 use crate::object::ObjectType::*;
 use crate::evaluator::eval_obj;
@@ -20,7 +19,7 @@ pub enum ObjectType {
 pub struct Object {
     pub(crate) object_type: ObjectType,
     pub(crate) span: (i64, i64),
-    pub(crate) content: Box<dyn Any>,
+    pub(crate) content: RefCell<Box<dyn Any>>,
 }
 
 impl Object {
@@ -30,16 +29,20 @@ impl Object {
 }
 
 pub struct Env<'a> {
-    parent: &'a Env<'a>,
-    defs: HashMap<&'a str, &'a Object>
+    pub(crate) parent: Option<&'a Env<'a>>,
+    pub(crate) defs: HashMap<&'a str, RefCell<Object>>,
 }
 
-fn make_builtins(defs: &mut HashMap<& str, & Object>) {
-    let print = &Object{
-        object_type: Builtin, span: (0, 0),
-        content: Box::new(move |obj: &Object, env: &Env| -> &Object {
+pub fn make_builtins() -> HashMap<&'static str, RefCell<Object>> {
+    let mut defs = HashMap::new();
+    let print = RefCell::new(Object {
+        object_type: Builtin,
+        span: (0, 0),
+        content: RefCell::new(Box::new(|obj: &'static Object, env: &mut Env| -> RefCell<Object> {
             print!("{}", eval_obj(obj, env).get_content());
-            return make_void(obj);
-        })};
+            make_void(obj)
+        })),
+    });
     defs.insert("print", print);
+    defs
 }
