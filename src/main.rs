@@ -44,7 +44,7 @@ fn load<T>(file: &str, env: &mut Env<T>) {
 
 fn eval<T>(input: String, env: &mut Env<T>, repl: bool) {
     let tokens = lexer::scan(input, repl);
-    println!("> {:?}", tokens);
+    println!("{:?}", tokens);
     let objects: (Option<RefCell<Object<()>>>, i32) = parser::parse(tokens);
-    println!("> {}", objects.0.unwrap().get_mut().get_content());
+    // println!("> {}", objects.0.unwrap().get_mut().get_content());
 }

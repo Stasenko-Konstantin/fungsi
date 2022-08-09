@@ -4,7 +4,6 @@ use std::fmt::Formatter;
 
 #[derive(fmt::Debug, Clone, Copy)]
 pub enum TokenType {
-    DEF,       // def
     NIL,       // nil
     OBJECT,    // object
     BIND,      // :=
@@ -26,7 +25,6 @@ pub enum TokenType {
 
 pub fn make_keywords() -> HashMap<&'static str, TokenType> {
     let mut keywords = HashMap::new();
-    keywords.insert("def", TokenType::DEF);
     keywords.insert("nil", TokenType::NIL);
     keywords.insert("object", TokenType::OBJECT);
     keywords.insert("<-", TokenType::ARROW);

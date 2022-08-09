@@ -92,6 +92,22 @@ pub fn scan(input: String, repl: bool) -> Vec<Token> {
                     let token = *keywords.get(&*name).unwrap();
                     tokens.push(
                         Token { token, content: name, span: (y, x) });
+                } else if name == "NB" { // comment
+                    loop {
+                        let c = match input.pop() {
+                            Some(c) => c,
+                            None => break 'outer,
+                        };
+                        x += 1;
+                        if c == '\n' {
+                            x = 0;
+                            y += 1;
+                            tokens.push(
+                                Token { token: TokenType::NLINE, content: "\\n".to_string(), span: (y, x) });
+                            break
+                        }
+                    }
+                    continue
                 } else {
                     tokens.push(
                         Token { token: TokenType::NAME, content: name, span: (y, x) });
@@ -108,7 +124,7 @@ pub fn scan(input: String, repl: bool) -> Vec<Token> {
         }
         x += 1;
     }
-    tokens.push(Token { token: TokenType::EOF, content: "".to_string(), span: (y, x) });
+    tokens.push(Token { token: TokenType::EOF, content: "".to_string(), span: (y, 0) });
     tokens
 }
 
