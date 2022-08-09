@@ -4,7 +4,7 @@ use crate::token::{Token, TokenType, make_keywords};
 
 pub fn scan(input: String, repl: bool) -> Vec<Token> {
     let mut input: String = input.chars().rev().collect();
-    let symbols = "\\|/?.><!#@`^~%&*-_+=";
+    let symbols = "\\|/?><!#@`^~%&*-_+=";
     let keywords = make_keywords();
     let mut tokens = Vec::new();
     let mut x = 0;
@@ -23,6 +23,8 @@ pub fn scan(input: String, repl: bool) -> Vec<Token> {
                 Token { token: TokenType::DELIMITER, content: "|".to_string(), span: (y, x) }),
             ',' => tokens.push(
                 Token { token: TokenType::COMMA, content: ",".to_string(), span: (y, x) }),
+            '.' => tokens.push(
+                Token { token: TokenType::DOT, content: ".".to_string(), span: (y, x) }),
             ':' => {
                 let c = match input.pop() {
                     Some(c) => c,
@@ -69,6 +71,7 @@ pub fn scan(input: String, repl: bool) -> Vec<Token> {
                 tokens.push(
                     Token { token: TokenType::NUM, content: num, span: (y, x) });
                 x += len;
+                continue
             }
             _ if c.is_alphabetic() || symbols.contains(c) => {
                 let mut name: String = String::from(c);
@@ -86,17 +89,18 @@ pub fn scan(input: String, repl: bool) -> Vec<Token> {
                 }
                 let len = name.len() as i64;
                 if keywords.contains_key(&*name) {
-                    let token = keywords.get(&*name).unwrap();
+                    let token = *keywords.get(&*name).unwrap();
                     tokens.push(
-                        Token { token: *token, content: name, span: (y, x) });
+                        Token { token, content: name, span: (y, x) });
                 } else {
                     tokens.push(
                         Token { token: TokenType::NAME, content: name, span: (y, x) });
                 }
                 x += len;
+                continue
             }
             _ => {
-                println!("lexer error: y = {}, x = {}, c = {}", y, x, c);
+                eprintln!("lexer error: y = {}, x = {}, c = {}", y, x, c);
                 if !repl {
                     exit(1);
                 }

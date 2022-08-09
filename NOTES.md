@@ -1,7 +1,7 @@
 ```smalltalk
 def true := object
 true <- @[f s | ^f]
-true <- @[| ^:true]
+true.str <- "true"
 println (if true then true else false)
 
 def obj := [o1]

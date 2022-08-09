@@ -8,7 +8,9 @@ pub enum TokenType {
     NIL,       // nil
     OBJECT,    // object
     BIND,      // :=
+    ARROW,     // <-
     EQ,        // =
+    DOT,       // .
     COMMA,     // ,
     NAME,
     ATOM,      // :atom
@@ -27,6 +29,7 @@ pub fn make_keywords() -> HashMap<&'static str, TokenType> {
     keywords.insert("def", TokenType::DEF);
     keywords.insert("nil", TokenType::NIL);
     keywords.insert("object", TokenType::OBJECT);
+    keywords.insert("<-", TokenType::ARROW);
     keywords
 }
 

@@ -6,17 +6,19 @@ mod lexer;
 mod token;
 mod object;
 mod evaluator;
+mod parser;
 
+use std::cell::RefCell;
 use std::env::args;
 use std::fs;
 use std::io::Write;
-use crate::object::{Env, make_builtins};
+use crate::object::{Env, Object};
 
 const HELP: &str = "help";
 
 fn main() {
     let args: Vec<String> = args().collect();
-    let mut env = Env{parent: None, defs: make_builtins()};
+    let mut env: Env<()> = Env{parent: None, defs: object::make_builtins()};
     if args.len() == 1 {
         loop {
             print!("< ");
@@ -35,12 +37,14 @@ fn main() {
     }
 }
 
-fn load(file: &str, env: &mut Env) {
+fn load<T>(file: &str, env: &mut Env<T>) {
     let input = fs::read_to_string(file).expect(HELP);
     eval(input, env, false)
 }
 
-fn eval(input: String, env: &mut Env, repl: bool) {
+fn eval<T>(input: String, env: &mut Env<T>, repl: bool) {
     let tokens = lexer::scan(input, repl);
     println!("> {:?}", tokens);
+    let objects: (Option<RefCell<Object<()>>>, i32) = parser::parse(tokens);
+    println!("> {}", objects.0.unwrap().get_mut().get_content());
 }
