@@ -8,7 +8,8 @@ pub enum TokenType {
     OBJECT,    // object
     BIND,      // :=
     ARROW,     // <-
-    EQ,        // =
+    PEQ,       // = - prototype equality
+    EQ,        // ==
     DOT,       // .
     COMMA,     // ,
     NAME,

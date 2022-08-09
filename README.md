@@ -5,11 +5,11 @@ Inspired by Lisps. And many other languages but mainly on Lisps
 
 - call-by-need
 - HOF
-- an ascetic prototipe-based OO model
+- an ascetic prototype-based OO model
 - macros (?)
 
 ```smalltalk 
-f := @[x y | def r := + x y
+f := @[x y | r := + x y
                  , println r
                  , ^r]
 ```
