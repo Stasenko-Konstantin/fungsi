@@ -1,7 +1,7 @@
 # fungsi (is far from complete and blazingly fast 🚀)
 # DON'T CLONE THIS, IT DOESN'T WORK YET <br> AND IT WON'T BE ANYTIME SOON.
-#### ! Its just my sandbox !                               
-Inspired by Lisps. And many other languages but mainly on Lisps
+#### ! Its just my sandbox !
+Inspired by Clojure, Haskell, Scala and Io.
 
 - call-by-need
 - HOF
@@ -10,6 +10,7 @@ Inspired by Lisps. And many other languages but mainly on Lisps
 
 ```smalltalk 
 f := @[x y | r := + x y
-                 , println r
-                 , ^r]
+             println r, ^r]
 ```
+
+### Contributions are welcome!

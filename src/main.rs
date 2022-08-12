@@ -7,6 +7,7 @@ mod token;
 mod object;
 mod evaluator;
 mod parser;
+mod error;
 
 use std::cell::RefCell;
 use std::env::args;

@@ -1,5 +1,6 @@
 use std::ops::Add;
 use std::process::exit;
+use crate::error::error;
 use crate::token::{Token, TokenType, make_keywords};
 
 pub fn scan(input: String, repl: bool) -> Vec<Token> {
@@ -51,7 +52,7 @@ pub fn scan(input: String, repl: bool) -> Vec<Token> {
                 x = 0;
                 y += 1;
                 tokens.push(
-                    Token { token: TokenType::NLINE, content: "\\n".to_string(), span: (y, x) });
+                    Token { token: TokenType::COMMA, content: ",".to_string(), span: (y, x) });
             }
             _ if c.is_digit(10) => {
                 let mut num: String = String::from(c);
@@ -103,7 +104,7 @@ pub fn scan(input: String, repl: bool) -> Vec<Token> {
                             x = 0;
                             y += 1;
                             tokens.push(
-                                Token { token: TokenType::NLINE, content: "\\n".to_string(), span: (y, x) });
+                                Token { token: TokenType::COMMA, content: ",".to_string(), span: (y, x) });
                             break
                         }
                     }
@@ -116,10 +117,7 @@ pub fn scan(input: String, repl: bool) -> Vec<Token> {
                 continue
             }
             _ => {
-                eprintln!("lexer error: y = {}, x = {}, c = {}", y, x, c);
-                if !repl {
-                    exit(1);
-                }
+                error(format!("lexer error: y = {}, x = {}, c = {}", y, x, c), repl)
             }
         }
         x += 1;

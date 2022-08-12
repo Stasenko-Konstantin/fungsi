@@ -20,8 +20,17 @@ pub enum TokenType {
     NUM,
     LPAREN,    // ( or [
     RPAREN,    // ) or ]
-    NLINE,     // \n
     EOF,
+}
+
+impl TokenType {
+    pub fn is_gen_sym(self) -> bool {
+        use TokenType::*;
+        match self {
+            NIL | OBJECT | NAME | ATOM | LAMBDA | NUM | LPAREN => true,
+            _ => false,
+        }
+    }
 }
 
 pub fn make_keywords() -> HashMap<&'static str, TokenType> {
