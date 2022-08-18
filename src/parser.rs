@@ -11,7 +11,7 @@ pub fn parse<T>(tokens: Vec<Token>, repl: bool) -> (Option<RefCell<Object<T>>>, 
     }
     let start = &tokens[0];
     if !start.token.is_gen_sym() {
-        error(format!("parser error: y = {}, x = {}, c = {}", start.span.0, start.span.1, start.content), repl);
+        error(format!("parser error {{ NonGenSym }} : y = {}, x = {}, c = {}", start.span.0, start.span.1, start.content), repl);
     }
     let program: Program<T>;
     let skip = -1;

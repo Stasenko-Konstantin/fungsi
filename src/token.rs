@@ -13,6 +13,7 @@ pub enum TokenType {
     DOT,       // .
     COMMA,     // ,
     NAME,
+    STRING,    // ""
     ATOM,      // :atom
     LAMBDA,    // @
     DELIMITER, // |
@@ -47,7 +48,7 @@ impl fmt::Display for TokenType {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Token {
     pub(crate) token: TokenType,
     pub(crate) content: String,

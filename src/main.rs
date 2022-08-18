@@ -14,6 +14,7 @@ use std::env::args;
 use std::fs;
 use std::io::Write;
 use crate::object::{Env, Object};
+use crate::token::Token;
 
 const HELP: &str = "help";
 
@@ -44,8 +45,9 @@ fn load<T>(file: &str, env: &mut Env<T>) {
 }
 
 fn eval<T>(input: String, env: &mut Env<T>, repl: bool) {
-    let tokens = lexer::scan(input, repl);
-    println!("{:?}", tokens);
-    let objects: (Option<RefCell<Object<()>>>, i32) = parser::parse(tokens);
+    let mut tokens: RefCell<Vec<Token>> = RefCell::new(Vec::new());
+    lexer::scan(input, &mut tokens, repl);
+    println!("{:?}", tokens.take());
+    let objects: (Option<RefCell<Object<()>>>, i32) = parser::parse(tokens.take(), repl);
     // println!("> {}", objects.0.unwrap().get_mut().get_content());
 }
