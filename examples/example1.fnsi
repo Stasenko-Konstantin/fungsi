@@ -1,0 +1,1 @@
+f := @[n : int | if { n .= 0 } then { ^1 } else { println n, n .* (f n .- 1) }]

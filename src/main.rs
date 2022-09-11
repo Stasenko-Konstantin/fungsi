@@ -1,8 +1,9 @@
 #![feature(fn_traits)]
 #![feature(unboxed_closures)]
 #![feature(generic_associated_types)]
+#![feature(result_option_inspect)]
 
-mod lexer;
+mod scanner;
 mod token;
 mod object;
 mod evaluator;
@@ -27,7 +28,7 @@ fn main() {
             let _ = std::io::stdout().flush();
             let mut input = String::new();
             std::io::stdin().read_line(&mut input).unwrap();
-            eval(input, &mut env, true)
+            eval(input.as_str(), &mut env, true)
         }
     } else if args.len() == 2 {
         match args[1].clone().as_str() {
@@ -40,14 +41,15 @@ fn main() {
 }
 
 fn load<T>(file: &str, env: &mut Env<T>) {
-    let input = fs::read_to_string(file).expect(HELP);
-    eval(input, env, false)
+    let input = fs::read_to_string(file)
+        .inspect_err(|e| eprintln!("{}\n{}", HELP, e.to_string())).unwrap();
+    eval(input.as_str(), env, false)
 }
 
-fn eval<T>(input: String, env: &mut Env<T>, repl: bool) {
-    let mut tokens: RefCell<Vec<Token>> = RefCell::new(Vec::new());
-    lexer::scan(input, &mut tokens, repl);
-    println!("{:?}", tokens.take());
-    let objects: (Option<RefCell<Object<()>>>, i32) = parser::parse(tokens.take(), repl);
+fn eval<T>(input: &str, env: &mut Env<T>, repl: bool) {
+    let mut tokens: Vec<Token> = Vec::new();
+    scanner::scan(input, &mut tokens, repl);
+    println!("{:?}", tokens);
+    let objects: (Option<RefCell<Object<()>>>, i32) = parser::parse(tokens.clone(), repl);
     // println!("> {}", objects.0.unwrap().get_mut().get_content());
 }

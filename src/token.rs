@@ -8,8 +8,6 @@ pub enum TokenType {
     OBJECT,    // object
     BIND,      // :=
     ARROW,     // <-
-    PEQ,       // = - prototype equality
-    EQ,        // ==
     DOT,       // .
     COMMA,     // ,
     NAME,
@@ -22,6 +20,7 @@ pub enum TokenType {
     LPAREN,    // ( or [
     RPAREN,    // ) or ]
     EOF,
+ // COMMENT       ;
 }
 
 impl TokenType {
@@ -52,7 +51,7 @@ impl fmt::Display for TokenType {
 pub struct Token {
     pub(crate) token: TokenType,
     pub(crate) content: String,
-    pub(crate) span: (i64, i64),
+    pub(crate) span: (i32, i32),
 }
 
 impl fmt::Display for Token {
