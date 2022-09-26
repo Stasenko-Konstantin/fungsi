@@ -1,6 +1,5 @@
 # fungsi (is far from complete and blazingly fast 🚀)
 
-# DON'T CLONE THIS, IT DOESN'T WORK YET <br> AND IT WON'T BE ANYTIME SOON.
 ### ! Its just my sandbox !
 
 ---
