@@ -4,14 +4,13 @@
 
 ---
 
-Inspired by Clojure, Haskell, Scala, Go, Rust and Io.
+Inspired by Racket, Haskell, Go, Rust and Nim.
 
-- call-by-need
+- call-by-value
 - HOF
-- an ascetic prototype-based OO model
 - optional static typing
 - Rust interop
-- macros (?)
+- macros
 
 ```smalltalk 
 f := @[x y : int | r := + x y

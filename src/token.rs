@@ -4,40 +4,40 @@ use std::fmt::Formatter;
 
 #[derive(fmt::Debug, Clone, Copy)]
 pub enum TokenType {
-    NIL,       // nil
-    OBJECT,    // object
-    BIND,      // :=
-    ARROW,     // <-
-    DOT,       // .
-    COMMA,     // ,
-    NAME,
-    STRING,    // ""
-    ATOM,      // :atom
-    LAMBDA,    // @
-    DELIMITER, // |
-    RETURN,    // ^
-    NUM,
-    LPAREN,    // ( or [
-    RPAREN,    // ) or ]
-    EOF,
- // COMMENT       ;
+    Nil,       // nil
+    Object,    // object
+    Bind,      // :=
+    Arrow,     // <-
+    Dot,       // .
+    Comma,     // ,
+    Name,      // xyz you know
+    String,    // ""
+    Atom,      // :atom
+    Lambda,    // @
+    Delimiter, // |
+    Return,    // ^
+    Num,       // 123 you know
+    LParen,    // ( or [
+    RParen,    // ) or ]
+    Eof,
+    // Comment    NB
 }
 
 impl TokenType {
     pub fn is_gen_sym(self) -> bool {
         use TokenType::*;
-        match self {
-            NIL | OBJECT | NAME | ATOM | LAMBDA | NUM | LPAREN => true,
-            _ => false,
-        }
+        matches!(
+            self,
+            Nil | Object | Name | Atom | Lambda | Num | String | LParen
+        )
     }
 }
 
 pub fn make_keywords() -> HashMap<&'static str, TokenType> {
     let mut keywords = HashMap::new();
-    keywords.insert("nil", TokenType::NIL);
-    keywords.insert("object", TokenType::OBJECT);
-    keywords.insert("<-", TokenType::ARROW);
+    keywords.insert("nil", TokenType::Nil);
+    keywords.insert("object", TokenType::Object);
+    keywords.insert("<-", TokenType::Arrow);
     keywords
 }
 
@@ -63,8 +63,5 @@ impl fmt::Display for Token {
 impl PartialEq for Token {
     fn eq(&self, other: &Self) -> bool {
         self.content == other.content
-    }
-    fn ne(&self, other: &Self) -> bool {
-        !self.eq(other)
     }
 }
