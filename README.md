@@ -1,15 +1,15 @@
-# fungsi (is far from complete and blazingly fast 🚀)
+# fungsi
 
-### ! Its just my sandbox !
+### It will never be finished 
 
 ---
 
-Inspired by Racket, Haskell, Go, Rust and Nim.
+Inspired by Racket, Clojure, Haskell, Go and maybe [Verse](https://simon.peytonjones.org/assets/pdfs/haskell-exchange-22.pdf) :).
 
 - call-by-value
-- HOF
-- optional static typing
-- Rust interop
+- HOF and closures
+- gradual typing
+- Go interop (?)
 - macros
 
 ```smalltalk 
@@ -17,4 +17,4 @@ f := @[x y : int | r := + x y
              println r, ^r] : int
 ```
 
-### Contributions are welcome!
+[//]: # (### Contributions are welcome!)
