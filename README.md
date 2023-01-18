@@ -1,14 +1,15 @@
 # fungsi
 
-### It will never be finished 
+### It will never be finished <br> Cause - eternal rewriting and studying
 
 ---
 
-Inspired by Racket, Clojure, Haskell, Go and maybe [Verse](https://simon.peytonjones.org/assets/pdfs/haskell-exchange-22.pdf) :).
+Inspired by Lisps, Haskell, Go and other little things :)
 
 - call-by-value
 - HOF and closures
 - gradual typing
+- effects (?)
 - Go interop (?)
 - macros
 
