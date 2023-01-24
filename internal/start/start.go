@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"fungsi/internal/help"
+	"fungsi/internal/lexer"
 	"os"
 )
 
@@ -17,12 +18,17 @@ func repl() {
 		if err != nil {
 			fmt.Println(help.OUT, err.Error())
 		}
-		eval(string(data))
+		eval(data)
 	}
 }
 
+func eval(code string) {
+	tokens := lexer.Scan(code)
+	fmt.Println(tokens)
+}
+
 func evalFile(path string) {
-	
+
 }
 
 func Start(args []string) {

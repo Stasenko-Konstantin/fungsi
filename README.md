@@ -8,14 +8,17 @@ Inspired by Lisps, Haskell, Go and other little things :)
 
 - call-by-value
 - HOF and closures
-- gradual typing
+- gradual (optional) typing with type inference (?)
 - effects (?)
-- Go interop (?)
+- Go interop
 - macros
 
-```smalltalk 
-f := @[x y : int | r := + x y
-             println r, ^r] : int
+```ats 
+f (x, y :int) :int := 
+    let r <- x + y in
+      begin
+        println r
+        r
 ```
 
 [//]: # (### Contributions are welcome!)
