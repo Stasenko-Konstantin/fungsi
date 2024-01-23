@@ -9,8 +9,6 @@ Inspired by Lisps, Haskell, Go and other little things :)
 - call-by-value
 - HOF and closures
 - gradual (optional) typing with type inference (?)
-- effects (?)
-- Go interop
 - macros
 
 ```ats 
