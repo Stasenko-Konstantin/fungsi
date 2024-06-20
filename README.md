@@ -11,12 +11,11 @@ Inspired by Haskell, Go, Scheme and other little things :)
 - gradual (optional) typing with type inference (?)
 - macros
 
-```ats 
-f (x, y :int) :int := 
-    let r <- x + y in
-      begin
-        println r
-        r
+```haskell 
+f :IO (:Int) x y :int = do
+  r = x + y
+  println r
+  return r 
 ```
 
 [//]: # (### Contributions are welcome!)

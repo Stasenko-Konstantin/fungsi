@@ -1,61 +1,67 @@
-```ats
+```haskell
 package name // обязательная инструкция
 
 import github.com/user/lib // квалифицированный импорт
 
 import // табуляция необходима
-    _ = lib // неквалифицированный импорт
-    l = lib // псевдоним
+  _ = lib // неквалифицированный импорт
+  _ = lib ! f // импорт lib кроме f 
+  _ = lib ! f1 f2 f3 
+  l = lib // псевдоним
     
 export 
-    Type
-    func
-    _ // экспорт всего пакета
+  Type
+  func
+  _ // экспорт всего пакета
+  _ ! f // эскопрт всего пакета кроме f
+  _ ! f1 f2 f3
     
+// типы всегда с большой буквы
 enum T a = C1 (T2 a) | C2 a deriving Iface1 (Iface2 a)
-    where 
-        a <= Iface
+  where 
+    a <= Iface
 
-record T a = 
+t :T (:Int) = C2 1
 
-interface I
-```
+record T a = C field1 :a field2 field3 :T2 // field2 и field3 принадлежат типу T2
+
+t :T (:Int) arg1 arg2 :T2 = C 1 arg1 arg2 
+
+interface I a where a <= Iface = 
+  f1 :String :a
+
+true f s = f
+  where
+    show true = "true"
+
+show true = "true"
 
 
+println <| if true then true else false // "true"
 
+ones = 1::ones
+println <| take 3 ones // [1,1,1]
 
+factorial n = if n == 1
+              then 1
+              else fact <| n - 1
+     
+// каждый тип в сигнатуре позиционен, поэтому можно указать только некоторые типы, а остальные fungsi попытается вывести
+// f :b - тип возвращаемого значения f
+// arg1 arg2 :a - тип первого аргумента выводится. внешне похоже на гошное [A](arg1, arg2 A), но механизм другой
+// каждый тип не в объявлении типов выделяется двоеточием. каждый тип принимающий типовые параметры принимает их в скобках через пробел
+// тип :Func (:a :b :c) читается как - функция принимающая два параметра типа :a и :b и возвращающая тип :c
+// отдельного синтаксиса для контекстов нет, т.е. кортежи, списки и т.п. указываются обычными типами и типовыми параметрами     
+f :b arg1 arg2 :a func :Func (:Tuple2 (:a :a) :b) = func <| Tuple2 arg1 arg2
 
-
-
-
-
-```ats
-true := (f, s) -> f
-// or
-true (f, s) := f
-true.str <- :true
-println , if true then true else false // :true
-
-obj1 := object
-obj2 := obj1
-obj3 := object
-    f <- (ap :obj2) -> ...
-// or
-obj3.f <- (ap :obj2) -> ... R
-f := (ap :obj1) -> ...  
-a := obj1
-b := object
-f a      // ok
-obj3.f a // ok
-f b      // error
-obj3.f b // error
-
-ones := 1::ones
-println , take 3 ones // [1,1,1]
-
-factorial n := if n == 1
-               then 1
-               else fact , n - 1
+// соответствие интерфейсу указывается с помощью блока where в сигнатуре функции
+// блок where есть и для тела функции, работает аналогично хаскельному where
+f arg :a 
+  where
+    a <= Iface
+  = ...
+    where
+      ...
 ```
     
 fungsi install - либо устанавливает исполняемый файл, либо устанавливает библиотеку в локальный репозиторий (?)
