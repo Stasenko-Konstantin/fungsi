@@ -1,4 +1,35 @@
 ```ats
+package name // обязательная инструкция
+
+import github.com/user/lib // квалифицированный импорт
+
+import // табуляция необходима
+    _ = lib // неквалифицированный импорт
+    l = lib // псевдоним
+    
+export 
+    Type
+    func
+    _ // экспорт всего пакета
+    
+enum T a = C1 (T2 a) | C2 a deriving Iface1 (Iface2 a)
+    where 
+        a <= Iface
+
+record T a = 
+
+interface I
+```
+
+
+
+
+
+
+
+
+
+```ats
 true := (f, s) -> f
 // or
 true (f, s) := f

@@ -4,7 +4,7 @@
 
 ---
 
-Inspired by Scala, Go, Scheme and other little things :)
+Inspired by Haskell, Go, Scheme and other little things :)
 
 - call-by-value
 - HOF and closures
